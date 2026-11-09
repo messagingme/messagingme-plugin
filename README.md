@@ -3,7 +3,7 @@
 WhatsApp for your app, from Claude Code: your WhatsApp number, an AI agent that answers your customers and a
 chat bubble for your site, set up in one session with [Messaging Me](https://app.messagingme.fr/en/developers/).
 
-**No account to create, no key to copy. No WhatsApp number? We provide one. No Meta Business account? Meta's window
+**No account to create beforehand, no key to copy. No WhatsApp number? We provide one. No Meta Business account? Meta's window
 creates it along the way, and you can keep your WhatsApp Business app.**
 
 [![The plugin installed, the workspace authorized, the number connected and a first message received, in Claude Code](https://app.messagingme.fr/img/plugin-demo.gif)](https://app.messagingme.fr/en/developers/)
@@ -40,9 +40,10 @@ your agreement, once.
 - In Codex: run `codex mcp login messagingme`.
 
 A page opens in your browser. Continue with Google: with no account yet, your workspace is created right then, with no
-form. Or create your workspace with your email address (a short form), or sign in with your password if you already
-have one. Then click Authorize. Your email address identifies you and receives the service emails (your number, your
-credit, your plan limits); with Pro, it also signs you in to the console.
+form. Or create your workspace with your email address (we email you a link, where you name your workspace and choose
+a password), or sign in with your password if you already have one. Then click Authorize.
+Your email address identifies you and receives the service emails (your number, your credit, your plan limits);
+with Pro, it also signs you in to the console.
 
 **Then**: your WhatsApp number, an AI agent built from your website, the chat bubble on your site, and a test from your
 phone.
