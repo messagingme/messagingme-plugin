@@ -24,7 +24,7 @@ the welcome was already given in this conversation (by `/messagingme:demarrer`),
 and a chat bubble for your site.
 
 - **Free**: 100 contacts including those who write to you, 1,000 templates sent per month, 1 user, driven entirely from here.
-- **Pro, €49 excl. VAT per month** (14-day free trial): the console, provided number included, unlimited sends, 1,000 contacts created and unlimited inbound contacts, 3 users.
+- **Pro, €49 excl. VAT per month** (14-day free trial): the console, provided number included, unlimited sends, 1,000 contacts, including those who write to you, 3 users.
 
 **Step 1, required: connect Claude Code (or Codex) to Messaging Me.** Claude acts in your own workspace, so it needs
 your agreement, once.
@@ -89,7 +89,9 @@ names another one, use the one it names.
 At this step and at `activer_numero`, `get_setup_state` gives the help pages (`aide`), each in French (`fr`) and
 English (`en`, for any other language). `aide.guide` asks these same questions as a web page: give it to a user who
 hesitates or would rather read them on their own. `aide.depannage` is for a connection that blocks (no code, Meta's
-window refuses the number or does not open): give it then. Never write a help page address from memory, only these.
+window refuses the number or does not open): give it then. `aide.numero_fourni` shows the way of a number we provide,
+through Meta's window, in a 3-minute video and its steps: give it with the link of mode `fourni`, unless the credit line pays (its window is not the one in the video). Never write a help
+page address from memory, only these.
 
 Almost nobody knows what a Meta Business account or the WhatsApp Business app is, nor why it matters here: be
 didactic. Before the first question, explain these four words in plain sentences, briefly, in the user's language:
@@ -120,17 +122,17 @@ Never pick a way on a guess, and never offer another one.
    - "I add a payment method (Visa / Mastercard) to my Meta Business account": Meta bills their templates to this
      payment method. Go to question 3. If they ask why a payment method, or what a Meta Business account is, give the
      page in their language: why, `aide.payer_meta`; the account, `aide.compte_meta_business`.
-   - WhatsApp credit: they prepay their messages at Messaging Me, with no card at Meta (30 EUR excl. tax per number per
+   - Credit line: they prepay their messages at Messaging Me, with no card at Meta (30 EUR excl. tax per number per
      month, paid when taken, even during the Pro plan trial). On Free, say it comes with the Pro plan, then go on with
      question 3. On Pro (from the first day of its trial) or on a confirmed Business, it is taken in the console: the
-     Plan page, WhatsApp credit tab (https://console.messagingme.app/offre?tab=whatsapp, with `&lang=en` in English); if
+     Plan page, Credit line tab (https://console.messagingme.app/offre?tab=whatsapp, with `&lang=en` in English); if
      the tab says why it cannot be taken yet (a Business still in its trial, a Pro payment late), tell them that reason.
      On Enterprise, it comes with their contract: nothing to take. Paying is their gesture: never offer to buy the option
      from here. Once they say it is paid (the payment confirms within seconds, and the link reads the option itself), or
      on Enterprise, go on with question 3: `start_whatsapp_connection` in `apporte` or
      `fourni` then gives a link that connects without a card at Meta, and its `consigne` says the conditions.
    Every way that keeps the WhatsApp Business app (mode `coexistence`, or a resumed `fourni_application`) is paid with
-   their card at Meta: say once, on such a way, that WhatsApp credit is not possible with the app.
+   their card at Meta: say once, on such a way, that the credit line is not possible with the app.
 3. **"Do you have a Meta Business account?"**
    - Yes: an API number. Ask whether they have an available number, one used in no WhatsApp app: yes, their own
      number (mode `apporte`); no number at all, a number we provide (mode `fourni`, 3.50 EUR excl. tax a month,
@@ -182,7 +184,8 @@ their own number one used in no WhatsApp app): relay it once, before the link.
      same window as `coexistence`. The code is typed in the app, not in Meta's window.
 2. `start_whatsapp_connection` with that mode returns a link valid for one hour and its `consigne`. First say what the
    `consigne` announces BEFORE the link (what will happen in Meta's window, who pays what on this way, the step by step
-   guide): the user must know it before clicking. Then write the full `url` on its own line, then the numbered steps of
+   guide): the user must know it before clicking. For `fourni`, that guide is `aide.numero_fourni` (the video of this
+   way, 3 minutes), given before the link unless the credit line pays (its window is another one). Then write the full `url` on its own line, then the numbered steps of
    `consigne`, one per line, in the user's language: the page shows the same ones. For `fourni_application`, the steps are those of its `consigne` (the app's account, then "Keep my
    WhatsApp Business app"), with no Meta window before the account. For a number we provide through Meta's window
    (`fourni`): click the link; pay (or "Get my number" in Pro); click "Open the Meta window"; on the number screen, "Enter a new phone number", the country GB (+44), then the digits that follow +44;
@@ -206,9 +209,9 @@ their own number one used in no WhatsApp app): relay it once, before the link.
    the connection; if it still reads 0, read it once more a few seconds later.
 4. Right after the connection, follow the `suite` of `watch_whatsapp_connection` on who pays Meta: a card at Meta
    (Visa or Mastercard), without which templates do not go out, with its steps, which `get_setup_state` gives again
-   (`etapes_carte_meta`) as long as Meta reports the card missing; or, when WhatsApp credit pays, no card at all, and
-   a top-up of that credit before the first templates; or the reconnection without a card from the WhatsApp credit
-   tab, for a trial number connected with the card before the option was taken.
+   (`etapes_carte_meta`) as long as Meta reports the card missing; or, when the credit line pays, no card at all, and
+   a top-up of that credit line before the first templates; a number already connected with its card at Meta cannot
+   move onto the credit line: the user writes to Support.
 
 ## activer_numero: a number Meta has not activated yet
 

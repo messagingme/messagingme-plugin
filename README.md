@@ -31,7 +31,7 @@ Then, before anything else:
 and a chat bubble for your site.
 
 - **Free**: 100 contacts including those who write to you, 1,000 templates sent per month, 1 user, driven entirely from here.
-- **Pro, €49 excl. VAT per month** (14-day free trial): the console, provided number included, unlimited sends, 1,000 contacts created and unlimited inbound contacts, 3 users.
+- **Pro, €49 excl. VAT per month** (14-day free trial): the console, provided number included, unlimited sends, 1,000 contacts, including those who write to you, 3 users.
 
 **Step 1, required: connect Claude Code (or Codex) to Messaging Me.** Claude acts in your own workspace, so it needs
 your agreement, once.
@@ -141,8 +141,8 @@ Each line leads to its page: the use case with its film and its code, or the doc
 - **Free**: 1,000 templates sent per month, 100 contacts including those who write to you, 1 user, the API and the MCP server included.
 - **Your own number**, or a provided number at €3.50 excl. VAT per month.
 - **Pay-as-you-go AI** on prepaid credit, €1 offered when your first number is connected.
-- **Pro, €49 excl. VAT per month** (14-day free trial): unlimited sends, 1,000 contacts created and unlimited inbound contacts, 3 users, provided number included, and the Inbox where your team takes over.
-- Meta bills some messages directly to your business, according to [its rate card](https://developers.facebook.com/docs/whatsapp/pricing), except with WhatsApp credit (Pro or Business plan), prepaid at Messaging Me.
+- **Pro, €49 excl. VAT per month** (14-day free trial): unlimited sends, 1,000 contacts, including those who write to you, 3 users, provided number included, and the Inbox where your team takes over.
+- Meta bills some messages directly to your business, according to [its rate card](https://developers.facebook.com/docs/whatsapp/pricing), except with the credit line (Pro or Business plan), prepaid at Messaging Me.
 <!-- prix:fin -->
 
 ## What's inside
@@ -196,7 +196,7 @@ remote server, the Messaging Me MCP server at `https://api.messagingme.app/mcp`.
   opening a payment page) are marked as such, and payments always happen on Stripe's page, by you.
 - **Before you start.** A Messaging Me account (created during the setup). For the official API, a Facebook profile:
   Meta's window offers to create your Meta Business account (a business portfolio, in Meta's screens) during the setup;
-  messages that Meta bills are charged on its card, except with WhatsApp credit, prepaid at Messaging Me. To keep your WhatsApp Business app, the app on your phone.
+  messages that Meta bills are charged on its card, except with the credit line, prepaid at Messaging Me. To keep your WhatsApp Business app, the app on your phone.
 
 Messaging Me is published by Messaging Me SAS (SmartLink), Paris. Privacy policy:
 https://www.messagingme.fr/en/politique-de-confidentialite-messaging-me/. Terms of use: https://www.messagingme.fr/en/conditions-d-utilisation/. Support:
