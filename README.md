@@ -60,20 +60,26 @@ your phone. An interrupted setup resumes where it stopped.
 
 ## Which WhatsApp number?
 
-This is where most people get lost, so here are the four words first.
+This is where most people get lost, so here are the words first, then the two ways to set up your WhatsApp account.
 
 - **Meta Business account**: your business's account at Meta (a "business portfolio", formerly Business Manager), on
   business.facebook.com. It is free; if you advertise on Facebook or Instagram, you probably have one. Otherwise,
   nothing to prepare: with your Facebook profile, Meta's window has you create it during the setup (business name,
   email, country, website).
 - **WhatsApp Business app**: the free app for businesses, on your phone, distinct from WhatsApp.
-- **API number**: a number connected through Meta to the official WhatsApp API, driven by Messaging Me. It sends your
-  messages (confirmations, reminders, campaigns, Shopify messages), and Meta bills them, the templates and the replies
-  beyond a monthly allowance, on a payment method you add at Meta.
-- **Keeping your WhatsApp Business app**: the number of your WhatsApp Business app also becomes an API number, without
-  leaving the app. You keep replying from your phone, and the messages your application sends go out from Messaging
-  Me. What you type in the app does not show in Messaging Me yet, and you need to open the app at least every two
-  weeks.
+
+Two ways to set up your WhatsApp account:
+
+- **Keep your WhatsApp Business app**: we transform it slightly so that messages can be automated. You still reply
+  from the app on your phone, and you also automate whatever you want with Messaging Me. The name and photo are set in
+  the app, with no business name verified by Meta. What you type in the app does not show in Messaging Me yet, and you
+  need to open the app at least every two weeks.
+- **Create an API number directly**: a number connected through Meta to the official WhatsApp API, driven entirely by
+  Messaging Me. Your business's name is displayed, reviewed by Meta; everything goes through Messaging Me (automatic
+  replies, campaigns, a shared Inbox); nothing to keep open on a phone. Meta bills the templates and the replies
+  beyond a monthly allowance, on a payment method you add at Meta or on the credit line.
+
+Either way, Claude asks you a few questions to find what you want and how.
 
 Then `/messagingme:demarrer` asks you, one question at a time, the same questions as the
 [Get started](https://app.messagingme.fr/en/get-started/) page:
@@ -127,6 +133,7 @@ Each line leads to its page: the use case with its film and its code, or the doc
 - [The welcome message at sign-up, with a button to the first use of your product.](https://app.messagingme.fr/en/use-cases/saas-onboarding-activation/)
 - [The failed payment reminder, with the link to update the card.](https://app.messagingme.fr/en/use-cases/failed-payment-recovery/)
 - [A campaign to your contacts, prepared by Claude and launched with your yes.](https://app.messagingme.fr/en/developers/prepare-a-campaign/) (`find_contacts`, `prepare_campaign`, `launch_campaign`; Pro plan)
+- [A scenario described in one sentence, built by Claude from an approved template, then sent to a contact to try it.](https://console.messagingme.app/developers/mcp?lang=en#create_scenario) (`create_scenario`, `list_scenarios`, `send_scenario_to_contact`; Pro plan)
 - [Your templates written by Claude and submitted to Meta, and the reason for a rejection.](https://console.messagingme.app/developers/api/templates?lang=en) (`create_template`, `get_template_status`)
 
 ### Connect it to your app
@@ -138,7 +145,7 @@ Each line leads to its page: the use case with its film and its code, or the doc
 - [Your sends through the API or the TypeScript SDK, safe to retry without duplicates thanks to the idempotency key.](https://console.messagingme.app/developers/api/sdk?lang=en)
 - [Your contacts and their consent kept up to date from your app, and your record fields created by Claude.](https://console.messagingme.app/developers/api/contacts?lang=en) (`create_field`)
 
-### Run it from Claude
+### Run it from your AI
 
 - [Your templates sent, delivered, read or failed: just ask Claude.](https://console.messagingme.app/developers/mcp?lang=en#get_message_stats) (`get_message_stats`)
 - [The estimated cost and clicks of your campaigns, and Meta’s errors.](https://app.messagingme.fr/en/features/cost-control/) (`get_campaign_stats`; Pro plan)
