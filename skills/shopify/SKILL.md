@@ -1,7 +1,7 @@
 ---
 name: shopify
-description: Connects the user's Shopify store to Messaging Me so that customers receive WhatsApp messages when an order is paid or shipped, and a reminder when they abandon a checkout, and imports the store's customers who subscribed to marketing - creates the store app with the Shopify CLI in the merchant's own organization, installs it with one click, keeps its secret and sets the messages. Use when the user wants to connect Shopify, send order confirmations, shipping updates or abandoned checkout reminders on WhatsApp, import their Shopify customers, know how much revenue their WhatsApp messages brought in, or check or cut the Shopify connection.
-allowed-tools: mcp__plugin_messagingme_messagingme__get_shopify_state, mcp__plugin_messagingme_messagingme__get_revenue_stats, mcp__plugin_messagingme_messagingme__preview_shopify_customers, mcp__plugin_messagingme_messagingme__list_templates, mcp__plugin_messagingme_messagingme__get_template_status, mcp__plugin_messagingme_messagingme__get_setup_state
+description: Connects the user's Shopify store to Messaging Me so that customers receive WhatsApp messages when an order is paid or shipped, and a reminder when they abandon a checkout, imports the store's customers who subscribed to marketing, and catches up the paid orders of the last 60 days for the segments - creates the store app with the Shopify CLI in the merchant's own organization, installs it with one click, keeps its secret and sets the messages. Use when the user wants to connect Shopify, send order confirmations, shipping updates or abandoned checkout reminders on WhatsApp, import their Shopify customers, bring their past orders into their segments, know how much revenue their WhatsApp messages brought in, or check or cut the Shopify connection.
+allowed-tools: mcp__plugin_messagingme_messagingme__get_shopify_state, mcp__plugin_messagingme_messagingme__get_revenue_stats, mcp__plugin_messagingme_messagingme__preview_shopify_customers, mcp__plugin_messagingme_messagingme__preview_shopify_order_history, mcp__plugin_messagingme_messagingme__get_shopify_order_history, mcp__plugin_messagingme_messagingme__list_templates, mcp__plugin_messagingme_messagingme__get_template_status, mcp__plugin_messagingme_messagingme__get_setup_state
 ---
 
 # Connect a Shopify store
@@ -76,7 +76,7 @@ application_url = "https://app.messagingme.fr/shopify/installe/"
 embedded = false
 
 [access_scopes]
-scopes = "read_customers,read_orders,read_checkouts,read_fulfillments"
+scopes = "read_customers,read_orders,read_checkouts,read_fulfillments,read_products"
 
 [webhooks]
 api_version = "2026-10"
@@ -189,6 +189,12 @@ same consent attestation.
 3. The first message leaves once per checkout, then the rest of its scenario if it has one; nothing leaves if an order
    came out of it in the meantime, even unpaid, and such an order stops the journey wherever it stands. A newer
    checkout from the same customer takes the place of the older one: its reminder stops the older journey.
+4. `checkout_abandoned_agent` is the same reminder with one more button, a quick reply "Vous avez une question ?" (have a
+   question?) that hands the conversation to an AI agent of the workspace. It needs an active agent: ask the user which
+   one (`list_agents`), or build one first. Turn it on with `set_shopify_message`, `event: checkout_abandoned_agent`,
+   `language: fr` and `agent_id`, without a template: its standard message is created and leaves once Meta approves
+   it. It turns `checkout_abandoned` off, and the reverse: a checkout gets one reminder. An operator who holds the
+   conversation keeps it; if the agent cannot answer (no AI credit, agent disabled), the team gets it.
 
 ## Import the store's customers
 
@@ -207,6 +213,39 @@ record counts toward the plan's contact limit, and managing that limit is the us
    answer.
 3. Call `import_shopify_customers` with `max_contacts`, the number they chose. A number above the free places is refused
    and nothing is written. The records are tagged Shopify; calling again imports the next ones without duplicates.
+
+## Add a scope to an app already installed
+
+An app created before November 24, 2026 lacks read_products, which the catch-up of past orders needs (without it,
+Shopify does not give the product of an order line): `preview_shopify_order_history` refuses and says so. To add it:
+
+1. In the folder where the app was created (for example `messagingme-shopify`), set `scopes` in `shopify.app.toml` to
+   the list of the block above. If that folder is gone, ask the user for the app's client ID (Shopify developer
+   dashboard, the Messaging Me app, its settings), then run
+   `npx @shopify/cli@latest app config link --client-id=<client id>` in a new folder: it writes the app's
+   `shopify.app.toml` again, whose scopes you then set.
+2. Publish: `npx @shopify/cli@latest app deploy --no-input --allow-updates`.
+3. Give the install link again (Install it and connect it, step 1): the user approves the new access there. Nothing
+   else changes: the keys stay the same, there is no need to call `connect_shopify` again.
+
+## Catch up the last 60 days of orders
+
+Orders paid before the store was connected are not in the segments (`find_contacts`: orders, products, amount spent).
+The catch-up reads the paid orders created in the last 60 days, the window Shopify opens to the app, and attaches each
+one to the record of its phone already in the workspace, amount and products included, as a live order would have
+been. It creates no record, sends no message and attributes no revenue: an order whose phone matches no record, or
+without a usable phone, is counted and never kept. It is open to every plan.
+
+1. Count first with `preview_shopify_order_history`, which writes nothing. If it refuses for the read_products
+   scope, add it first (Add a scope to an app already installed, above), then count again. Tell the user, in plain words: how many paid
+   orders the window holds, how many are already known (they get their products), how many would join a record, how
+   many have no record or no usable phone (counted, never kept). When `complete` is false, the counts are partial: the
+   catch-up itself reads everything.
+2. Once the user agrees, call `import_shopify_order_history`. It runs in the background, a few minutes for most
+   stores and over an hour for the largest, and is refused while another one runs.
+3. `get_shopify_order_history` follows it: its status and its counts. `interrupted` means nothing moved for 15 minutes:
+   starting it again closes it and reads the window again. Once it is `termine`, `find_contacts` says from which date
+   the orders were caught up, with its orders criteria.
 
 ## What WhatsApp brought in
 
